@@ -1,0 +1,10 @@
+.idea/
+.vscode/
+node_modules/
+dist/
+.DS_Store
+*.log
+coverage
+report.xml
+reports/
+package-lock.json
