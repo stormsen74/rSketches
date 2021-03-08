@@ -96,7 +96,7 @@ module.exports = {
   plugins: plugins,
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '/rSketches/dist/',
     historyApiFallback: true,
     compress: true,
     port: 3000,
