@@ -5,7 +5,6 @@ import { Container, Icon } from './styles';
 
 export default function IndexPage() {
   const history = useHistory();
-  console.log(window.location);
 
   return (
     <Container>
