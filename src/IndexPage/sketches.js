@@ -13,6 +13,7 @@ import DroneSteeringPrototype from '../sketches/r3f/DroneSteeringPrototype';
 import DroneSteeringApproach from '../sketches/r3f/DroneSteeringApproach';
 import DroneHeightMap from '../sketches/r3f/DroneHeightMap';
 import DroneVehicle from '../sketches/r3f/DroneVehicle';
+import DroneVehicleHeight from '../sketches/r3f/DroneVehicleHeight';
 
 export const sketchTypes = {
   p5: 'p5',
@@ -124,5 +125,12 @@ export const sketches = [
     description: '... description',
     route: '/DroneVehicle',
     component: DroneVehicle,
+  },
+  {
+    type: sketchTypes.r3f,
+    title: 'Drone-Vehicle-Height 👍',
+    description: '... description',
+    route: '/DroneVehicleHeight',
+    component: DroneVehicleHeight,
   },
 ];
