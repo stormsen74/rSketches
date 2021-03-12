@@ -49,10 +49,10 @@ if (isProduction) {
   plugins.push(new CleanWebpackPlugin({ verbose: true }));
   output = {
     // filename: '[name].[hash].js',
-    // path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist'),
     globalObject: 'this',
 
-    path: path.resolve(__dirname, 'rSketches/dist/'),
+    // path: path.resolve(__dirname, 'rSketches/dist/'),
     filename: '[name].[hash].js',
     publicPath: buildPath,
   };
