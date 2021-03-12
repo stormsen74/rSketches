@@ -42,11 +42,6 @@ yarn upgrade react
 # start local development
 yarn start
 
-# run tests (Jest)
-yarn test
-# or run with watch mode
-yarn test:watch
-
 # create a build
 yarn build
 ```
