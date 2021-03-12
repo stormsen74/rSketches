@@ -5,8 +5,6 @@ import { Container, Icon } from './styles';
 
 export default function IndexPage() {
   const history = useHistory();
-  // eslint-disable-next-line no-console
-  console.log(__dirname);
 
   return (
     <Container>

@@ -11,7 +11,6 @@ class Vehicle {
   constructor() {}
 
   init(refCubeMesh) {
-    console.log('init Vehicle!', refCubeMesh);
     this.refCubeMesh = refCubeMesh;
     this.mass = 1;
     this.rotation = 0;

@@ -22,7 +22,6 @@ export default function WF(p) {
   p.setup = () => {
     waveform = WaveformData.create(track);
     channel = waveform.channel(0);
-    console.log(waveform);
 
     p.createCanvas(0, 0, p.P2D);
     p.frameRate(60);

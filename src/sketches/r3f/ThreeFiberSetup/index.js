@@ -23,8 +23,6 @@ function Box(props) {
     ...makeButton('log()', () => console.log('... ' + Date.now())),
   });
 
-  console.log(position);
-
   // This reference will give us direct access to the mesh
   const mesh = useRef();
 

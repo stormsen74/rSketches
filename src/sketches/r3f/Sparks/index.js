@@ -1,8 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import * as THREE from 'three';
-import { Canvas } from 'react-three-fiber';
 import { Color } from 'three';
-import { OrbitControls } from '@react-three/drei';
+import { Canvas } from 'react-three-fiber';
 import Particles from './Particles';
 import Sparks from './Sparks';
 import { CanvasContainer } from 'common/styles';
