@@ -11,7 +11,7 @@ class Vehicle {
   constructor() {}
 
   init(refCubeMesh) {
-    console.log('init Vehicle!', refCubeMesh);
+    console.log('init Vehicle!');
     this.refCubeMesh = refCubeMesh;
     this.mass = 1;
     this.rotation = 0;
@@ -54,7 +54,7 @@ class Vehicle {
   }
 
   move(forceDirection) {
-    this.accelerationForce += 0.0005;
+    this.accelerationForce += 0.0005; //smooth
     this.refCubeMesh.getWorldDirection(this.direction);
     this.direction.normalize().multiplyScalar(this.accelerationForce * forceDirection);
     this.applyForce(this.direction);

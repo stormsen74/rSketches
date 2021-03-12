@@ -27,7 +27,7 @@ class CanvasHeightMap {
     this.canvas.style.transformOrigin = 'right bottom';
     this.canvas.style.transform = 'scale(.75)';
     document.body.appendChild(this.canvas);
-    // this.drawImage();
+    this.drawImage();
 
     // this.imageData = new Image();
     // this.imageData.crossOrigin = 'Anonymous';
@@ -41,10 +41,13 @@ class CanvasHeightMap {
     this.position.x = this.center.x + vPosXZ.x * this.STEPSIZE;
     this.position.y = this.center.y + vPosXZ.y * this.STEPSIZE;
     this.drawImage();
+    // console.log(this.ctx.getImageData(this.position.x, this.position.y, 1, 1).data[0]);
     const sample = this.ctx.getImageData(this.position.x, this.position.y, 1, 1).data[0];
     this.normalizedValue = mapRange(sample, 0, 255, 0, 1);
     this.drawPointer();
   }
+
+  getNormalizedHeight() {}
 
   drawImage() {
     this.ctx.clearRect(0, 0, this.size.width, this.size.height);
