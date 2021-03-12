@@ -47,7 +47,7 @@ if (isProduction) {
   plugins.push(new CleanWebpackPlugin({ verbose: true }));
   output = {
     filename: '[name].[hash].js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname + '/rSketches/dist/', 'dist'),
     globalObject: 'this',
   };
 }

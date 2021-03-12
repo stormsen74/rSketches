@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import React, { useRef, useMemo } from 'react';
 import { extend, useFrame, useThree } from 'react-three-fiber';
-import lerp from 'lerp';
 import * as meshline from 'threejs-meshline';
+import { MathUtils } from 'three';
 
 extend(meshline);
 
@@ -61,12 +61,12 @@ export default function Sparks({ mouse, count, colors, radius = 10 }) {
   const aspect = size.width / viewport.width;
   useFrame(() => {
     if (ref.current) {
-      ref.current.rotation.x = lerp(
+      ref.current.rotation.x = MathUtils.lerp(
         ref.current.rotation.x,
         0 + mouse.current[1] / aspect / 200,
         0.1,
       );
-      ref.current.rotation.y = lerp(
+      ref.current.rotation.y = MathUtils.lerp(
         ref.current.rotation.y,
         0 + mouse.current[0] / aspect / 400,
         0.1,

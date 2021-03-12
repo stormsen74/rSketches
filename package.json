@@ -13,7 +13,6 @@
     "test:watch": "node node_modules/cross-env/src/bin/cross-env.js NODE_ENV=test jest --watch",
     "lint": "node node_modules/eslint/bin/eslint --fix ."
   },
-  
   "repository": {
     "type": "git",
     "url": "https://github.com/manuelpuchta/react-boilerplate.git"
@@ -41,7 +40,6 @@
     "cannon-es": "^0.16.0",
     "file-loader": "^6.2.0",
     "google-fonts-plugin": "^5.0.2",
-    "lerp": "^1.0.3",
     "p5": "^1.2.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -80,9 +78,6 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.5",
     "html-webpack-plugin": "^4.5.0",
-    "husky": "^4.3.0",
-    "jest": "^26.6.3",
-    "jest-styled-components": "^7.0.3",
     "lint-staged": "^10.5.1",
     "prettier": "^2.2.0",
     "react-hot-loader": "^4.13.0",
