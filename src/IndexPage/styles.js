@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Icon = styled.div`
   background-color: #353333;
   padding: 15px;
+  max-height: 300px;
   margin: 10px;
   color: #b58d64;
   text-decoration: none;
@@ -17,11 +18,18 @@ export const Icon = styled.div`
   }
 `;
 
+export const Wrapper = styled.div`
+  display: flex;
+  flex: 0 0;
+  overflow: auto;
+  margin: 15px 0;
+`;
+
 export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  align-content: center;
+  //align-items: center;
+  align-content: flex-start;
   justify-content: center;
   height: 100vh;
   width: 100%;

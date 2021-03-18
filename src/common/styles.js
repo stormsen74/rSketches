@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
     background-color: black;
     font-family: 'JetBrains Mono', monospace;
     user-select: none;
+    scroll-behavior: smooth;
   }
 `;
 

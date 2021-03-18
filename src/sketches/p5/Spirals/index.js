@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import p5 from 'p5';
-import ParticlesSetup from './ParticlesSetup';
 import { appStates } from 'services/SketchService';
+import Spirals from './Spirals';
 
-export default function SketchParticlesSetup() {
+export default function SketchSpirals() {
   const sketchRef = useRef();
   const [sketch, setSketch] = useState(null);
 
   useEffect(() => {
-    setSketch(new p5(ParticlesSetup, sketchRef.current));
+    setSketch(new p5(Spirals, sketchRef.current));
   }, []);
 
   useEffect(() => {
