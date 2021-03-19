@@ -97,6 +97,7 @@ export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
       widthScaled: { value: widthScaled },
       heightScaled: { value: heightScaled },
       textureOffset: { value: textureOffset },
+      alphaBlend: { value: 0 },
     };
 
     this.onBeforeCompile = (shader) => {
@@ -156,6 +157,7 @@ export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
           uniform vec3 projDirection;
           uniform float widthScaled;
           uniform float heightScaled;
+          uniform float alphaBlend;
           uniform vec2 textureOffset;
 
           varying vec3 vSavedNormal;
@@ -205,7 +207,7 @@ export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
 
             // https://learnopengl.com/Advanced-OpenGL/Blending
             // diffuseColor = textureColor * textureColor.a + diffuseColor * (1.0 - textureColor.a);
-            diffuseColor = diffuseColor * textureColor.a;
+            diffuseColor = diffuseColor * mix(textureColor.a, 1.0, 1.0 - alphaBlend);
           }
         `,
       });

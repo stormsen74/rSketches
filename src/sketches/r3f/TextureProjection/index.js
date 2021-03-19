@@ -20,19 +20,21 @@ import cone_alpha from './cone_alpha.png';
 import cone_map from './cone.png';
 import uv_texture from './texture.jpg';
 import radial_texture from './radial.png';
-import radial_texture_debug from './radial_inverted.png';
 import ProjectedMaterial from 'three/ProjectedMaterial/ProjectedMaterial';
 import { useTweaks } from 'use-tweaks';
 import { useHideTweaks } from '../../../utils/hooks';
+import { mapRange } from '../../../utils/math';
 
 function Scene() {
   useHideTweaks();
-  const { x, y, z, showCamHelper, showLightCone } = useTweaks({
+  const { x, y, z, toggleAlpha, showCamHelper, showLightCone, animate } = useTweaks({
     x: { value: 0, min: -2, max: 2, step: 0.1 },
     y: { value: 0, min: -2, max: 4, step: 0.1 },
-    z: { value: 3, min: 1.5, max: 5, step: 0.1 },
+    z: { value: 3, min: 1.5, max: 10, step: 0.01 },
+    toggleAlpha: true,
     showCamHelper: false,
     showLightCone: true,
+    animate: false,
   });
 
   const [projectedTexture, uvTexture, coneAlpha, coneMap] = useLoader(TextureLoader, [
@@ -46,10 +48,12 @@ function Scene() {
   const [projectionBox, setProjectionBox] = useState();
   const [camHelper, setCamHelper] = useState();
   const [target] = useState(new Vector3(0, 0, 0));
+  const [cone, setCone] = useState();
   const boxRef = useRef();
   const coneRef = useRef();
 
-  const [cone, setCone] = useState();
+  const t = useRef(0);
+  const [animator] = useState(new Vector3(0, 0, 0));
 
   const setupProjectionCam = () => {
     const projectionCamera = new PerspectiveCamera(45, 1, 0.01, 5);
@@ -57,9 +61,8 @@ function Scene() {
       new ProjectedMaterial({
         camera: projectionCamera,
         texture: projectedTexture,
-        cover: false,
-        // color: '#37E140',
         transparent: true,
+        // color: '#37E140',
         side: DoubleSide,
         map: uvTexture,
         metalness: 1,
@@ -76,7 +79,6 @@ function Scene() {
       .rotateY(Math.PI);
     const material = new MeshBasicMaterial({
       color: '#35c4d2',
-      // side: DoubleSide,
       transparent: true,
       opacity: 0.5,
       depthTest: true,
@@ -106,18 +108,42 @@ function Scene() {
     }
   }, [projectedMaterial]);
 
-  useFrame(() => {
+  useEffect(() => {
+    if (projectedMaterial) projectedMaterial.transparent = !!toggleAlpha;
+  }, [toggleAlpha]);
+
+  useFrame((_, dt) => {
     if (projectionBox) {
+      // => update projectedMaterial
       projectedMaterial.project(projectionBox);
 
-      projectedMaterial.camera.position.set(x, y, z);
+      // => projectionCam
+      if (animate) {
+        t.current += dt * 0.5;
+        animator.set(2 * Math.sin(t.current), 2 * Math.cos(t.current), 2.5 + Math.sin(t.current));
+        projectedMaterial.camera.position.copy(animator);
+      } else {
+        projectedMaterial.camera.position.set(x, y, z);
+      }
       projectedMaterial.camera.lookAt(target);
 
+      // => lightCone
       cone.position.copy(projectedMaterial.camera.position);
       cone.lookAt(target);
       const distanceToCubeWall = cone.position.distanceTo(projectionBox.position) - 0;
       const radius = distanceToCubeWall * 0.25;
       cone.scale.set(radius, radius, distanceToCubeWall);
+      if (distanceToCubeWall > 5) {
+        cone.material.opacity = 0;
+        projectedMaterial.uniforms.alphaBlend.value = 0.0;
+      } else {
+        cone.material.opacity = Math.min(mapRange(distanceToCubeWall, 5, 4, 0, 0.5), 0.5);
+        projectedMaterial.uniforms.alphaBlend.value = Math.min(
+          mapRange(distanceToCubeWall, 5, 4, 0, 1),
+          1,
+        );
+      }
+
       coneMap.offset.x += 0.005;
     }
   });
