@@ -1,38 +1,38 @@
-import * as THREE from 'three';
-import { addLoadListener, getTexelDecodingFunction, monkeyPatch } from './three-utils';
+import * as THREE from 'three'
+import { addLoadListener, getTexelDecodingFunction, monkeyPatch } from './three-utils'
 
 export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
-  #cover;
-  #textureScale;
+  #cover
+  #textureScale
 
   get texture() {
-    return this.uniforms.projectedTexture.value;
+    return this.uniforms.projectedTexture.value
   }
   set texture(texture) {
-    this.uniforms.projectedTexture.value = texture;
+    this.uniforms.projectedTexture.value = texture
   }
 
   get textureScale() {
-    return this.#textureScale;
+    return this.#textureScale
   }
   set textureScale(textureScale) {
-    this.#textureScale = textureScale;
-    this.saveDimensions();
+    this.#textureScale = textureScale
+    this.saveDimensions()
   }
 
   get textureOffset() {
-    return this.uniforms.textureOffset.value;
+    return this.uniforms.textureOffset.value
   }
   set textureOffset(textureOffset) {
-    this.uniforms.textureOffset.value = textureOffset;
+    this.uniforms.textureOffset.value = textureOffset
   }
 
   get cover() {
-    return this.#cover;
+    return this.#cover
   }
   set cover(cover) {
-    this.#cover = cover;
-    this.saveDimensions();
+    this.#cover = cover
+    this.saveDimensions()
   }
 
   constructor({
@@ -43,39 +43,31 @@ export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
     cover = false,
     ...options
   } = {}) {
-    console.log('ProjectedMaterial()');
+    console.log('ProjectedMaterial()')
     if (!texture?.isTexture) {
-      throw new Error('Invalid texture passed to the ProjectedMaterial');
+      throw new Error('Invalid texture passed to the ProjectedMaterial')
     }
 
     if (!camera || !camera.isCamera) {
-      throw new Error('Invalid camera passed to the ProjectedMaterial');
+      throw new Error('Invalid camera passed to the ProjectedMaterial')
     }
 
-    super(options);
+    super(options)
 
-    Object.defineProperty(this, 'isProjectedMaterial', { value: true });
+    Object.defineProperty(this, 'isProjectedMaterial', { value: true })
 
     // save a reference to the camera
-    this.camera = camera;
+    this.camera = camera
 
     // save the private variables
-    this.#cover = cover;
-    this.#textureScale = textureScale;
+    this.#cover = cover
+    this.#textureScale = textureScale
 
     // scale to keep the image proportions and apply textureScale
-    const [widthScaled, heightScaled] = computeScaledDimensions(
-      texture,
-      camera,
-      textureScale,
-      cover,
-    );
+    const [widthScaled, heightScaled] = computeScaledDimensions(texture, camera, textureScale, cover)
 
     // apply encoding based on provided texture
-    const projectedTexelToLinear = getTexelDecodingFunction(
-      'projectedTexelToLinear',
-      texture.encoding,
-    );
+    const projectedTexelToLinear = getTexelDecodingFunction('projectedTexelToLinear', texture.encoding)
 
     this.uniforms = {
       projectedTexture: { value: texture },
@@ -98,15 +90,15 @@ export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
       heightScaled: { value: heightScaled },
       textureOffset: { value: textureOffset },
       alphaBlend: { value: 0 },
-    };
+    }
 
-    this.onBeforeCompile = (shader) => {
+    this.onBeforeCompile = shader => {
       // expose also the material's uniforms
-      Object.assign(this.uniforms, shader.uniforms);
-      shader.uniforms = this.uniforms;
+      Object.assign(this.uniforms, shader.uniforms)
+      shader.uniforms = this.uniforms
 
       if (camera.isOrthographicCamera) {
-        shader.defines.ORTHOGRAPHIC = '';
+        shader.defines.ORTHOGRAPHIC = ''
       }
 
       shader.vertexShader = monkeyPatch(shader.vertexShader, {
@@ -145,7 +137,7 @@ export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
           vWorldPosition = savedModelMatrix * vec4(position, 1.0);
           #endif
         `,
-      });
+      })
 
       shader.fragmentShader = monkeyPatch(shader.fragmentShader, {
         header: /* glsl */ `
@@ -204,33 +196,34 @@ export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
 
             // apply the material opacity
             textureColor.a *= opacity;
+            // if(textureColor.a < 1.0) discard;
 
             // https://learnopengl.com/Advanced-OpenGL/Blending
             // diffuseColor = textureColor * textureColor.a + diffuseColor * (1.0 - textureColor.a);
             diffuseColor = diffuseColor * mix(textureColor.a, 1.0, 1.0 - alphaBlend);
           }
         `,
-      });
-    };
+      })
+    }
 
     // Listen on resize if the camera used for the projection
     // is the same used to render.
     // We do this on window resize because there is no way to
     // listen for the resize of the renderer
     window.addEventListener('resize', () => {
-      this.uniforms.projectionMatrixCamera.value.copy(camera.projectionMatrix);
+      this.uniforms.projectionMatrixCamera.value.copy(camera.projectionMatrix)
 
-      this.saveDimensions();
-    });
+      this.saveDimensions()
+    })
 
     // If the image texture passed hasn't loaded yet,
     // wait for it to load and compute the correct proportions.
     // This avoids rendering black while the texture is loading
     addLoadListener(texture, () => {
-      this.uniforms.isTextureLoaded.value = true;
+      this.uniforms.isTextureLoaded.value = true
 
-      this.saveDimensions();
-    });
+      this.saveDimensions()
+    })
   }
 
   saveDimensions() {
@@ -238,102 +231,96 @@ export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
       this.texture,
       this.camera,
       this.textureScale,
-      this.cover,
-    );
+      this.cover
+    )
 
-    this.uniforms.widthScaled.value = widthScaled;
-    this.uniforms.heightScaled.value = heightScaled;
+    this.uniforms.widthScaled.value = widthScaled
+    this.uniforms.heightScaled.value = heightScaled
   }
 
   saveCameraMatrices() {
     // make sure the camera matrices are updated
-    this.camera.updateProjectionMatrix();
-    this.camera.updateMatrixWorld();
-    this.camera.updateWorldMatrix();
+    this.camera.updateProjectionMatrix()
+    this.camera.updateMatrixWorld()
+    this.camera.updateWorldMatrix()
 
     // update the uniforms from the camera so they're
     // fixed in the camera's position at the projection time
-    const viewMatrixCamera = this.camera.matrixWorldInverse;
-    const projectionMatrixCamera = this.camera.projectionMatrix;
-    const modelMatrixCamera = this.camera.matrixWorld;
+    const viewMatrixCamera = this.camera.matrixWorldInverse
+    const projectionMatrixCamera = this.camera.projectionMatrix
+    const modelMatrixCamera = this.camera.matrixWorld
 
-    this.uniforms.viewMatrixCamera.value.copy(viewMatrixCamera);
-    this.uniforms.projectionMatrixCamera.value.copy(projectionMatrixCamera);
-    this.uniforms.projPosition.value.copy(this.camera.position);
-    this.uniforms.projDirection.value.set(0, 0, 1).applyMatrix4(modelMatrixCamera);
+    this.uniforms.viewMatrixCamera.value.copy(viewMatrixCamera)
+    this.uniforms.projectionMatrixCamera.value.copy(projectionMatrixCamera)
+    this.uniforms.projPosition.value.copy(this.camera.position)
+    this.uniforms.projDirection.value.set(0, 0, 1).applyMatrix4(modelMatrixCamera)
 
     // tell the shader we've projected
-    this.uniforms.isTextureProjected.value = true;
+    this.uniforms.isTextureProjected.value = true
   }
 
   project(mesh) {
     if (
       !(Array.isArray(mesh.material)
-        ? mesh.material.every((m) => m.isProjectedMaterial)
+        ? mesh.material.every(m => m.isProjectedMaterial)
         : mesh.material.isProjectedMaterial)
     ) {
-      throw new Error(`The mesh material must be a ProjectedMaterial`);
+      throw new Error(`The mesh material must be a ProjectedMaterial`)
     }
 
-    if (
-      !(Array.isArray(mesh.material)
-        ? mesh.material.some((m) => m === this)
-        : mesh.material === this)
-    ) {
-      throw new Error(
-        `The provided mesh doesn't have the same material as where project() has been called from`,
-      );
+    if (!(Array.isArray(mesh.material) ? mesh.material.some(m => m === this) : mesh.material === this)) {
+      throw new Error(`The provided mesh doesn't have the same material as where project() has been called from`)
     }
 
     // make sure the matrix is updated
-    mesh.updateMatrixWorld();
+    mesh.updateMatrixWorld()
 
     // we save the object model matrix so it's projected relative
     // to that position, like a snapshot
-    this.uniforms.savedModelMatrix.value.copy(mesh.matrixWorld);
+    this.uniforms.savedModelMatrix.value.copy(mesh.matrixWorld)
 
     // if the material is not the first, output just the texture
     if (Array.isArray(mesh.material)) {
-      const materialIndex = mesh.material.indexOf(this);
+      const materialIndex = mesh.material.indexOf(this)
       if (!mesh.material[materialIndex].transparent) {
         throw new Error(
-          `You have to pass "transparent: true" to the ProjectedMaterial if you're working with multiple materials.`,
-        );
+          `You have to pass "transparent: true" to the ProjectedMaterial if you're working with multiple materials.`
+        )
       }
       if (materialIndex > 0) {
-        this.uniforms.backgroundOpacity.value = 0;
+        this.uniforms.backgroundOpacity.value = 0
       }
     }
 
     // persist also the current camera position and matrices
-    this.saveCameraMatrices();
+    this.saveCameraMatrices()
   }
 
   projectInstanceAt(index, instancedMesh, matrixWorld, { forceCameraSave = false } = {}) {
     if (!instancedMesh.isInstancedMesh) {
-      throw new Error(`The provided mesh is not an InstancedMesh`);
+      throw new Error(`The provided mesh is not an InstancedMesh`)
     }
 
     if (
       !(Array.isArray(instancedMesh.material)
-        ? instancedMesh.material.every((m) => m.isProjectedMaterial)
+        ? instancedMesh.material.every(m => m.isProjectedMaterial)
         : instancedMesh.material.isProjectedMaterial)
     ) {
-      throw new Error(`The InstancedMesh material must be a ProjectedMaterial`);
+      throw new Error(`The InstancedMesh material must be a ProjectedMaterial`)
     }
 
     if (
       !(Array.isArray(instancedMesh.material)
-        ? instancedMesh.material.some((m) => m === this)
+        ? instancedMesh.material.some(m => m === this)
         : instancedMesh.material === this)
     ) {
       throw new Error(
-        `The provided InstancedMeshhave't i samenclude thas e material where project() has been called from`,
-      );
+        `The provided InstancedMeshhave't i samenclude thas e material where project() has been called from`
+      )
     }
 
     if (!instancedMesh.geometry.isBufferGeometry) {
-      throw new Error(`The InstancedMesh geometry must be a BufferGeometry`);
+      throw new Error(`The InstancedMesh geometry must be a BufferGeometry`)
     }
 
     if (
@@ -343,8 +330,8 @@ export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
       !instancedMesh.geometry.attributes[`savedModelMatrix3`]
     ) {
       throw new Error(
-        `No allocated data found on the geometry, please call 'allocateProjectionData(geometry, instancesCount)'`,
-      );
+        `No allocated data found on the geometry, please call 'allocateProjectionData(geometry, instancesCount)'`
+      )
     }
 
     instancedMesh.geometry.attributes[`savedModelMatrix0`].setXYZW(
@@ -352,40 +339,40 @@ export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
       matrixWorld.elements[0],
       matrixWorld.elements[1],
       matrixWorld.elements[2],
-      matrixWorld.elements[3],
-    );
+      matrixWorld.elements[3]
+    )
     instancedMesh.geometry.attributes[`savedModelMatrix1`].setXYZW(
       index,
       matrixWorld.elements[4],
       matrixWorld.elements[5],
       matrixWorld.elements[6],
-      matrixWorld.elements[7],
-    );
+      matrixWorld.elements[7]
+    )
     instancedMesh.geometry.attributes[`savedModelMatrix2`].setXYZW(
       index,
       matrixWorld.elements[8],
       matrixWorld.elements[9],
       matrixWorld.elements[10],
-      matrixWorld.elements[11],
-    );
+      matrixWorld.elements[11]
+    )
     instancedMesh.geometry.attributes[`savedModelMatrix3`].setXYZW(
       index,
       matrixWorld.elements[12],
       matrixWorld.elements[13],
       matrixWorld.elements[14],
-      matrixWorld.elements[15],
-    );
+      matrixWorld.elements[15]
+    )
 
     // if the material is not the first, output just the texture
     if (Array.isArray(instancedMesh.material)) {
-      const materialIndex = instancedMesh.material.indexOf(this);
+      const materialIndex = instancedMesh.material.indexOf(this)
       if (!instancedMesh.material[materialIndex].transparent) {
         throw new Error(
-          `You have to pass "transparent: true" to the ProjectedMaterial if you're working with multiple materials.`,
-        );
+          `You have to pass "transparent: true" to the ProjectedMaterial if you're working with multiple materials.`
+        )
       }
       if (materialIndex > 0) {
-        this.uniforms.backgroundOpacity.value = 0;
+        this.uniforms.backgroundOpacity.value = 0
       }
     }
 
@@ -393,7 +380,7 @@ export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
     // only if it's the first instance since most surely
     // in all other instances the camera won't change
     if (index === 0 || forceCameraSave) {
-      this.saveCameraMatrices();
+      this.saveCameraMatrices()
     }
   }
 }
@@ -402,15 +389,15 @@ export default class ProjectedMaterial extends THREE.MeshPhysicalMaterial {
 function getCameraRatio(camera) {
   switch (camera.type) {
     case 'PerspectiveCamera': {
-      return camera.aspect;
+      return camera.aspect
     }
     case 'OrthographicCamera': {
-      const width = Math.abs(camera.right - camera.left);
-      const height = Math.abs(camera.top - camera.bottom);
-      return width / height;
+      const width = Math.abs(camera.right - camera.left)
+      const height = Math.abs(camera.top - camera.bottom)
+      return width / height
     }
     default: {
-      throw new Error(`${camera.type} is currently not supported in ProjectedMaterial`);
+      throw new Error(`${camera.type} is currently not supported in ProjectedMaterial`)
     }
   }
 }
@@ -419,43 +406,43 @@ function getCameraRatio(camera) {
 function computeScaledDimensions(texture, camera, textureScale, cover) {
   // return some default values if the image hasn't loaded yet
   if (!texture.image) {
-    return [1, 1];
+    return [1, 1]
   }
 
-  const ratio = texture.image.naturalWidth / texture.image.naturalHeight;
-  const ratioCamera = getCameraRatio(camera);
-  const widthCamera = 1;
-  const heightCamera = widthCamera * (1 / ratioCamera);
-  let widthScaled;
-  let heightScaled;
+  const ratio = texture.image.naturalWidth / texture.image.naturalHeight
+  const ratioCamera = getCameraRatio(camera)
+  const widthCamera = 1
+  const heightCamera = widthCamera * (1 / ratioCamera)
+  let widthScaled
+  let heightScaled
   if (cover ? ratio > ratioCamera : ratio < ratioCamera) {
-    const width = heightCamera * ratio;
-    widthScaled = 1 / ((width / widthCamera) * textureScale);
-    heightScaled = 1 / textureScale;
+    const width = heightCamera * ratio
+    widthScaled = 1 / ((width / widthCamera) * textureScale)
+    heightScaled = 1 / textureScale
   } else {
-    const height = widthCamera * (1 / ratio);
-    heightScaled = 1 / ((height / heightCamera) * textureScale);
-    widthScaled = 1 / textureScale;
+    const height = widthCamera * (1 / ratio)
+    heightScaled = 1 / ((height / heightCamera) * textureScale)
+    widthScaled = 1 / textureScale
   }
 
-  return [widthScaled, heightScaled];
+  return [widthScaled, heightScaled]
 }
 
 export function allocateProjectionData(geometry, instancesCount) {
   geometry.setAttribute(
     `savedModelMatrix0`,
-    new THREE.InstancedBufferAttribute(new Float32Array(instancesCount * 4), 4),
-  );
+    new THREE.InstancedBufferAttribute(new Float32Array(instancesCount * 4), 4)
+  )
   geometry.setAttribute(
     `savedModelMatrix1`,
-    new THREE.InstancedBufferAttribute(new Float32Array(instancesCount * 4), 4),
-  );
+    new THREE.InstancedBufferAttribute(new Float32Array(instancesCount * 4), 4)
+  )
   geometry.setAttribute(
     `savedModelMatrix2`,
-    new THREE.InstancedBufferAttribute(new Float32Array(instancesCount * 4), 4),
-  );
+    new THREE.InstancedBufferAttribute(new Float32Array(instancesCount * 4), 4)
+  )
   geometry.setAttribute(
     `savedModelMatrix3`,
-    new THREE.InstancedBufferAttribute(new Float32Array(instancesCount * 4), 4),
-  );
+    new THREE.InstancedBufferAttribute(new Float32Array(instancesCount * 4), 4)
+  )
 }

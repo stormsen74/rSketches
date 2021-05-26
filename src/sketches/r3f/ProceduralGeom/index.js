@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { CanvasContainer } from '../../../common/styles';
-import { useFrame } from 'react-three-fiber';
+import { useFrame } from '@react-three/fiber';
 import {
   CameraHelper,
   DirectionalLight,
@@ -58,8 +58,8 @@ function Lights() {
       <primitive object={hemiLight} />
       <primitive object={pointLight} />
       {/*<primitive object={dirLight} />*/}
-      {/*<primitive object={dirLightHelper} />*/}
-      <primitive object={pointLightHelper} />
+      <primitive object={dirLightHelper} />
+      {/*<primitive object={pointLightHelper} />*/}
     </>
   );
 }

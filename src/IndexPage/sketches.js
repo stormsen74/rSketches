@@ -1,26 +1,26 @@
-import SketchParticlesSetup from '../sketches/p5/ParticlesSetup';
-import ThreeFiberSetup from '../sketches/r3f/ThreeFiberSetup';
-import SketchWaveform from '../sketches/p5/waveform/SketchWaveform';
-import SketchField from '../sketches/p5/CoulombField';
-import SketchEquationsRK from '../sketches/p5/EquationsRK';
-import SketchNoiseField from '../sketches/p5/NoiseField';
-import SketchNoiseFieldImage from '../sketches/p5/NoiseFieldImage';
-import SparksSketch from '../sketches/r3f/Sparks';
-import ProceduralGeomSketch from '../sketches/r3f/ProceduralGeom';
-import TreeTest from '../sketches/r3f/Tree';
-import Platonics from '../sketches/r3f/Platonics';
-import DroneSteeringPrototype from '../sketches/r3f/DroneSteeringPrototype';
-import DroneSteeringApproach from '../sketches/r3f/DroneSteeringApproach';
-import DroneHeightMap from '../sketches/r3f/DroneHeightMap';
-import DroneVehicle from '../sketches/r3f/DroneVehicle';
-import DroneVehicleHeight from '../sketches/r3f/DroneVehicleHeight';
-import SketchSpirals from '../sketches/p5/Spirals';
-import TextureProjection from "../sketches/r3f/TextureProjection";
+import SketchParticlesSetup from '../sketches/p5/ParticlesSetup'
+import ThreeFiberSetup from '../sketches/r3f/ThreeFiberSetup'
+import SketchWaveform from '../sketches/p5/waveform/SketchWaveform'
+import SketchField from '../sketches/p5/CoulombField'
+import SketchEquationsRK from '../sketches/p5/EquationsRK'
+import SketchNoiseField from '../sketches/p5/NoiseField'
+import SketchNoiseFieldImage from '../sketches/p5/NoiseFieldImage'
+import ProceduralGeomSketch from '../sketches/r3f/ProceduralGeom'
+import Platonics from '../sketches/r3f/Platonics'
+import DroneSteeringPrototype from '../sketches/r3f/DroneSteeringPrototype'
+import DroneSteeringApproach from '../sketches/r3f/DroneSteeringApproach'
+import DroneHeightMap from '../sketches/r3f/DroneHeightMap'
+import DroneVehicle from '../sketches/r3f/DroneVehicle'
+import DroneVehicleHeight from '../sketches/r3f/DroneVehicleHeight'
+import SketchSpirals from '../sketches/p5/Spirals'
+import TextureProjection from '../sketches/r3f/TextureProjection'
+import CurveAnimation from '../sketches/r3f/CurveAnimation'
+import GridReveal from '../sketches/r3f/GridReveal'
 
 export const sketchTypes = {
   p5: 'p5',
   r3f: 'r3f',
-};
+}
 
 export const sketches = [
   {
@@ -72,13 +72,7 @@ export const sketches = [
     route: '/ThreeFiberSetup',
     component: ThreeFiberSetup,
   },
-  {
-    type: sketchTypes.r3f,
-    title: 'Sparks',
-    description: '... description',
-    route: '/Sparks',
-    component: SparksSketch,
-  },
+
   {
     type: sketchTypes.r3f,
     title: 'Procedural',
@@ -86,20 +80,13 @@ export const sketches = [
     route: '/Procedural',
     component: ProceduralGeomSketch,
   },
-  {
-    type: sketchTypes.r3f,
-    title: 'TreeTest',
-    description: '... description',
-    route: '/Tree',
-    component: TreeTest,
-  },
-  {
-    type: sketchTypes.r3f,
-    title: 'Platonics',
-    description: '... description',
-    route: '/Platonics',
-    component: Platonics,
-  },
+  // {
+  //   type: sketchTypes.r3f,
+  //   title: 'Platonics',
+  //   description: '... description',
+  //   route: '/Platonics',
+  //   component: Platonics,
+  // },
   {
     type: sketchTypes.r3f,
     title: 'Drone-Steering(cannon-hooks)',
@@ -149,4 +136,18 @@ export const sketches = [
     route: '/TextureProjection',
     component: TextureProjection,
   },
-];
+  {
+    type: sketchTypes.r3f,
+    title: 'CurveAnimation',
+    description: '... description',
+    route: '/CurveAnimation',
+    component: CurveAnimation,
+  },
+  {
+    type: sketchTypes.r3f,
+    title: 'GridReveal',
+    description: '... description',
+    route: '/GridReveal',
+    component: GridReveal,
+  },
+]

@@ -13,7 +13,7 @@ import {
   PlaneBufferGeometry,
   Vector3,
 } from 'three';
-import { useThree } from 'react-three-fiber';
+import { useThree } from '@react-three/fiber';
 import { mapRange } from '../../../utils/math';
 
 // https://codepen.io/prisoner849/pen/vYBVddL

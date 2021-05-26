@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react';
-import ThreeCanvas from 'three/ThreeCanvas';
-import { useFrame } from 'react-three-fiber';
-import { makeButton, makeMonitor, makeSeparator, useTweaks } from 'use-tweaks';
-import { CanvasContainer } from 'common/styles';
-import { useHideTweaks } from 'utils/hooks';
+import React, { useRef, useState } from 'react'
+import ThreeCanvas from 'three/ThreeCanvas'
+import { makeButton, makeMonitor, makeSeparator, useTweaks } from 'use-tweaks'
+import { CanvasContainer } from 'common/styles'
+import { useHideTweaks } from 'utils/hooks'
+import { useFrame } from '@react-three/fiber'
 
 function Box(props) {
-  useHideTweaks();
+  useHideTweaks()
 
   const { speed, position, color } = useTweaks({
     color: '#1f495f',
@@ -21,19 +21,19 @@ function Box(props) {
     }),
     // eslint-disable-next-line no-console
     ...makeButton('log()', () => console.log('... ' + Date.now())),
-  });
+  })
 
   // This reference will give us direct access to the mesh
-  const mesh = useRef();
+  const mesh = useRef()
 
   // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
+  const [hovered, setHover] = useState(false)
+  const [active, setActive] = useState(false)
 
   // Rotate mesh every frame, this is outside of React without overhead
   useFrame(() => {
-    mesh.current.rotation.x = mesh.current.rotation.y += speed;
-  });
+    mesh.current.rotation.x = mesh.current.rotation.y += speed
+  })
 
   return (
     <mesh
@@ -49,11 +49,11 @@ function Box(props) {
       <boxBufferGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color={hovered ? 'hotpink' : color} />
     </mesh>
-  );
+  )
 }
 
 export default function ThreeFiberSetup() {
-  const camera = { fov: 35, near: 0.1, far: 1000, position: [0, 1, 10] };
+  const camera = { fov: 35, near: 0.1, far: 1000, position: [0, 1, 10] }
   return (
     <CanvasContainer>
       <ThreeCanvas camera={camera} clearColor={'#0a1e29'}>
@@ -63,5 +63,5 @@ export default function ThreeFiberSetup() {
         <Box position={[0, 0, 0]} />
       </ThreeCanvas>
     </CanvasContainer>
-  );
+  )
 }

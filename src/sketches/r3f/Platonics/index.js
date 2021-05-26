@@ -18,7 +18,7 @@ import { useTweaks } from 'use-tweaks';
 import { VertexNormalsHelper } from 'three/examples/jsm/helpers/VertexNormalsHelper';
 import { BufferGeometryUtils } from 'three/examples/jsm/utils/BufferGeometryUtils';
 import { useHideTweaks } from 'utils/hooks';
-import { useFrame } from 'react-three-fiber';
+import { useFrame } from '@react-three/fiber';
 import styled from 'styled-components';
 
 const StyledPlate = styled.div`

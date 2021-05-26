@@ -1,111 +1,119 @@
-import Particle from './Particle';
-import Tweakpane from 'tweakpane';
-import { Vector2 } from 'three';
+import Tweakpane from 'tweakpane'
+import { Vector2 } from 'three'
 
 export default function Spirals(p) {
-  const particles = [];
-  const center = new Vector2(p.windowWidth / 2, p.windowHeight / 2);
-  const polar = { r: 10, theta: 0 };
-  const cartesian = { x: 0, y: 0 };
+  const center = new Vector2(p.windowWidth / 2, p.windowHeight / 2)
+  const updateSpiral = () => {
+    p.clear()
+    createSpiral()
+  }
+
+  // https://en.wikipedia.org/wiki/Spiral/
+  // https://mathcurve.com/courbes2d.gb/courbes2d.shtml
+
+  const spiralTypes = {
+    archimedean: theta => {
+      return theta
+    },
+    hyperbolic: theta => {
+      return 1 / theta
+    },
+    fermat: theta => {
+      return Math.pow(theta, 0.5)
+    },
+    golden: theta => {
+      return Math.pow(Math.E, theta * 0.3063489)
+    },
+    lituus: theta => {
+      return Math.pow(theta, -0.5)
+    },
+    logarithmic: theta => {
+      return Math.pow(Math.E, 0.5 * theta)
+    },
+    sinusoidal: theta => {
+      return Math.cos(3 * theta)
+    },
+  }
 
   const pane = new Tweakpane({
     title: 'Parameters',
-  });
+  })
   const PARAMS = {
-    deltaAngle: 0.01,
+    alpha: 50,
+    step: 0.05,
+    maxAngle: Math.PI * 6,
+    type: 'archimedean',
     someColor: 'rgba(0, 0, 0, 1)',
-  };
-  pane.addInput(PARAMS, 'deltaAngle', {
-    min: -1,
-    max: 1,
-    step: 0.01,
-  });
-  pane.addInput(PARAMS, 'someColor');
+  }
 
-  const addParticle = (position) => {
-    const particle = new Particle(p, position);
-    particles.push(particle);
-  };
+  // tweaks
+  const scale_options = { min: 1, max: 200, step: 1 }
+  const step_options = { min: 0.01, max: 1, step: 0.01 }
+  const maxAngle_options = { min: 0, max: Math.PI * 10, step: 0.1 }
+  const type_options = {
+    options: {
+      archimedean: 'archimedean',
+      hyperbolic: 'hyperbolic',
+      fermat: 'fermat',
+      lituus: 'lituus',
+      logarithmic: 'logarithmic',
+      golden: 'golden',
+      sinusoidal: 'sinusoidal',
+    },
+  }
+
+  pane.addInput(PARAMS, 'alpha', scale_options).on('change', updateSpiral)
+  pane.addInput(PARAMS, 'step', step_options).on('change', updateSpiral)
+  pane.addInput(PARAMS, 'maxAngle', maxAngle_options).on('change', updateSpiral)
+  pane.addInput(PARAMS, 'type', type_options).on('change', updateSpiral)
+  pane.addInput(PARAMS, 'someColor')
 
   const onResize = () => {
-    p.clear();
-    p.resizeCanvas(p.windowWidth, p.windowHeight);
-  };
-
-  const updateSpiral = () => {
-    polar.theta += PARAMS.deltaAngle;
-    polar.r = polar.theta;
-    // Convert polar to cartesian
-    cartesian.x = polar.r * Math.cos(polar.theta);
-    cartesian.y = polar.r * Math.sin(polar.theta);
-    particles[0].position.x = center.x + cartesian.x;
-    particles[0].position.y = center.y + cartesian.y;
-    // particles[0].setPosition(position.x, position.y);
-  };
+    p.clear()
+    p.resizeCanvas(p.windowWidth, p.windowHeight)
+  }
 
   const createSpiral = () => {
-    p.colorMode(p.HSB, 1);
+    p.colorMode(p.HSB, 1)
 
-    const step = 0.05;
-    const maxRad = Math.PI * 6;
-    // const center = new Vector2(p.mouseX, p.mouseY);
-    const tempPosition = new Vector2().copy(center);
+    const tempPosition = new Vector2().copy(center)
 
-    for (let theta = 0; theta < maxRad; theta += step) {
-      // const r = theta;
-      const r = Math.pow(theta, 0.5);
+    for (let theta = 0; theta < PARAMS.maxAngle; theta += PARAMS.step) {
+      const r = spiralTypes[PARAMS.type](theta)
+      const position = new Vector2(r * Math.cos(theta), r * Math.sin(theta)).multiplyScalar(PARAMS.alpha).add(center)
 
-      const position = new Vector2(r * Math.cos(theta), r * Math.sin(theta))
-        .multiplyScalar(10)
-        .add(center);
+      const b = p.map(theta, 0, PARAMS.maxAngle, 0.2, 1)
+      const c = p.map(theta, 0, PARAMS.maxAngle, 0, 0.5)
+      const color = p.color(c, c, b)
 
-      const b = p.map(theta, 0, maxRad, 0.2, 1);
-      const color = p.color(0.75, 0.5, b);
+      p.stroke(color)
+      p.line(tempPosition.x, tempPosition.y, position.x, position.y)
 
-      p.stroke(color);
-      p.line(tempPosition.x, tempPosition.y, position.x, position.y);
-
-      tempPosition.copy(position);
+      tempPosition.copy(position)
     }
-  };
+  }
 
   // p5
   p.setup = () => {
-    p.createCanvas(0, 0, p.P2D);
-    p.frameRate(60);
-    p.colorMode(p.RGB, 255, 255, 255, 1);
-    onResize();
+    p.createCanvas(0, 0, p.P2D)
+    p.frameRate(60)
+    p.colorMode(p.RGB, 255, 255, 255, 1)
+    onResize()
 
-    // center.x = p.windowWidth / 2;
-    // center.y = p.windowHeight / 2;
-
-    createSpiral();
-
-    addParticle(p.createVector(0, 0));
-  };
+    updateSpiral()
+  }
 
   p.windowResized = () => {
-    onResize();
-  };
+    onResize()
+  }
 
   p.mousePressed = () => {
-    createSpiral();
-  };
+    createSpiral()
+  }
 
-  p.draw = () => {
-    // updateSpiral();
-    // p.background(PARAMS.someColor);
-    // p.background('rgba(100,0,0,.5');
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const particle = particles[i];
-      particle.run();
-      if (particle.isDead()) {
-        particles.splice(i, 1);
-      }
-    }
-  };
+  p.draw = () => {}
 
   p.remove = () => {
-    pane.dispose();
-  };
+    pane.dispose()
+  }
 }
