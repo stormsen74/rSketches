@@ -38,7 +38,7 @@
     "cannon-es": "^0.17.1",
     "file-loader": "^6.2.0",
     "google-fonts-plugin": "^5.0.2",
-    "p5": "^1.2.0",
+    "p5": "^1.4.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "npm:@hot-loader/react-dom",
