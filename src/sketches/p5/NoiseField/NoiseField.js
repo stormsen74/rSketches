@@ -20,7 +20,7 @@ export default function NoiseField(p) {
     curl: false,
     useSimplex: false,
     animateNoise: false,
-    numBlobs: 1,
+    numBlobs: 100,
     noiseZ: 0.1,
     noiseScale: 0.0015,
     curlStrength: 1,

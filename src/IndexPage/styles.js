@@ -19,20 +19,17 @@ export const Icon = styled.div`
 `
 
 export const Wrapper = styled.div`
-  //display: flex;
-  //flex: 1 0;
-  overflow: auto;
-  height: 80vh;
-  margin: 15px 0;
+  position: absolute;
   width: 100%;
+  height: 100%;
+  overflow: auto;
 `
 
 export const Container = styled.div`
+  position: absolute;
   display: flex;
-  //flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
-  //align-content: space-around;
   justify-content: center;
-  //height: auto;
+  padding: 10px;
 `
