@@ -8,7 +8,7 @@ import { useHideTweaks, useKeyPress } from '../../../utils/hooks'
 import { DirectionalLight, DoubleSide, MeshStandardMaterial, Vector3 } from 'three'
 import { useTweaks } from 'use-tweaks'
 import { mapRange } from '../../../utils/math'
-import simpleDrone from '../DroneSteeringPrototype/simple-drone.glb'
+import simpleDrone from '../DroneHeightMap/DES_drone.glb'
 
 // https://stackoverflow.com/questions/27533311/moving-a-body-to-a-specific-position
 // https://stackoverflow.com/questions/49565413/move-cannon-js-body-toward-dynamic-position

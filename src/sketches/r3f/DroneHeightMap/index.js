@@ -9,7 +9,7 @@ import Map from './blocksHeight.png'
 import { DirectionalLight, DoubleSide, MeshStandardMaterial, TextureLoader, Vector2, Vector3 } from 'three'
 import { useTweaks } from 'use-tweaks'
 import { mapRange } from '../../../utils/math'
-import simpleDrone from '../DroneSteeringPrototype/simple-drone.glb'
+import simpleDrone from './DES_drone.glb'
 import CanvasHeightMap from './CanvasHeightMap'
 
 // https://stackoverflow.com/questions/27533311/moving-a-body-to-a-specific-position

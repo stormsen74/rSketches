@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Icon = styled.div`
   background-color: #353333;
@@ -16,21 +16,23 @@ export const Icon = styled.div`
     border: 1px solid rgba(255, 255, 255, 0.5);
     transition: all 0.25s ease-out;
   }
-`;
+`
 
 export const Wrapper = styled.div`
-  display: flex;
-  flex: 0 0;
+  //display: flex;
+  //flex: 1 0;
   overflow: auto;
+  height: 80vh;
   margin: 15px 0;
-`;
+  width: 100%;
+`
 
 export const Container = styled.div`
   display: flex;
+  //flex-direction: column;
   flex-wrap: wrap;
-  //align-items: center;
-  align-content: flex-start;
+  align-items: center;
+  //align-content: space-around;
   justify-content: center;
-  height: 100vh;
-  width: 100%;
-`;
+  //height: auto;
+`

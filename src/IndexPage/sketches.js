@@ -7,15 +7,12 @@ import SketchNoiseField from '../sketches/p5/NoiseField'
 import SketchNoiseFieldImage from '../sketches/p5/NoiseFieldImage'
 import ProceduralGeomSketch from '../sketches/r3f/ProceduralGeom'
 import Platonics from '../sketches/r3f/Platonics'
-import DroneSteeringPrototype from '../sketches/r3f/DroneSteeringPrototype'
 import DroneSteeringApproach from '../sketches/r3f/DroneSteeringApproach'
 import DroneHeightMap from '../sketches/r3f/DroneHeightMap'
 import DroneVehicle from '../sketches/r3f/DroneVehicle'
-import DroneVehicleHeight from '../sketches/r3f/DroneVehicleHeight'
 import SketchSpirals from '../sketches/p5/Spirals'
 import TextureProjection from '../sketches/r3f/TextureProjection'
 import CurveAnimation from '../sketches/r3f/CurveAnimation'
-import GridReveal from '../sketches/r3f/GridReveal'
 
 export const sketchTypes = {
   p5: 'p5',
@@ -80,19 +77,12 @@ export const sketches = [
     route: '/Procedural',
     component: ProceduralGeomSketch,
   },
-  // {
-  //   type: sketchTypes.r3f,
-  //   title: 'Platonics',
-  //   description: '... description',
-  //   route: '/Platonics',
-  //   component: Platonics,
-  // },
   {
     type: sketchTypes.r3f,
-    title: 'Drone-Steering(cannon-hooks)',
+    title: 'Platonics',
     description: '... description',
-    route: '/Drone-Steering',
-    component: DroneSteeringPrototype,
+    route: '/Platonics',
+    component: Platonics,
   },
   {
     type: sketchTypes.r3f,
@@ -116,13 +106,6 @@ export const sketches = [
     component: DroneVehicle,
   },
   {
-    type: sketchTypes.r3f,
-    title: 'Drone-Vehicle-Height',
-    description: '... description',
-    route: '/DroneVehicleHeight',
-    component: DroneVehicleHeight,
-  },
-  {
     type: sketchTypes.p5,
     title: 'Spirals',
     description: '... description',
@@ -142,12 +125,5 @@ export const sketches = [
     description: '... description',
     route: '/CurveAnimation',
     component: CurveAnimation,
-  },
-  {
-    type: sketchTypes.r3f,
-    title: 'GridReveal',
-    description: '... description',
-    route: '/GridReveal',
-    component: GridReveal,
   },
 ]

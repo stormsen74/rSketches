@@ -952,10 +952,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.11.2", "@babel/runtime@^7.13.10", "@babel/runtime@^7.13.17":
-  version "7.14.0"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.0.tgz#46794bc20b612c5f75e62dd071e24dfd95f1cbe6"
-  integrity sha512-JELkvo/DlpNdJ7dlyw/eY7E0suy5i5GQH+Vlxaq1nsNJ+H7f4Vtv3jMeCEgRhZZQFXTjldYfQgv2qmM6M1v5wA==
+"@babel/runtime@^7.11.2", "@babel/runtime@^7.13.10", "@babel/runtime@^7.14.6":
+  version "7.15.3"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.15.3.tgz#2e1c2880ca118e5b2f9988322bd8a7656a32502b"
+  integrity sha512-OvwMLqNXkCXSz1kSm58sEsNuhqOx/fKpnUnKnFB5v8uDda5bLNEHNgKPvhDN6IU0LDcnHQ90LlJ0Q6jnyBSIBA==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -1016,15 +1016,15 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@chevrotain/types@^9.0.1":
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/@chevrotain/types/-/types-9.0.1.tgz#db8361d8e28c687f4dfbbae2523155b4b1d13321"
-  integrity sha512-jyIgbvb0Vz3OhLdImiufolBxRNAPFhpZmWuNWQ9ffU+nsxLJ0a0yObRCkdT2MKGXolwLZow3r8zhVr/7f5yNSA==
+"@chevrotain/types@^9.0.2":
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@chevrotain/types/-/types-9.0.2.tgz#477bb3b973b91ff47377399d1e9f4410be6c0141"
+  integrity sha512-lo1dQPX7DQffJb26eaYLEy4/jUTFmsGKa43mDvMNAHwItEgUQHUkTZR0iAkHG0aJv8ejM/KqYpRVSNetrOK8qw==
 
-"@chevrotain/utils@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@chevrotain/utils/-/utils-9.0.0.tgz#3b40e30a2007610af9b900125cb654d648f07ac7"
-  integrity sha512-J0uI+VxqCMiTFmVD95dfZr1QxJcw1RMQc7X3umMAfEcG5f2uWrZeyX0h3hURvXgzUcK6vXH5r+SNv+4bPxWpdg==
+"@chevrotain/utils@^9.0.2":
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@chevrotain/utils/-/utils-9.0.2.tgz#6f28fd41d2168c21e441e1a4ad6a0097e4d351f5"
+  integrity sha512-iTju1VpbGruWagXS/XswuqeimOCRNeDvrXLlWHYsHp1qTU8sJfAfLiX5vs7DNxB1px6N8VWVI0SD8vMUksNBYw==
 
 "@emotion/is-prop-valid@^0.8.8":
   version "0.8.8"
@@ -1064,15 +1064,18 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@react-three/cannon@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@react-three/cannon/-/cannon-1.1.1.tgz#ff43d0910f095f46325846ca986c67cb4d647639"
-  integrity sha512-PpXpGkJUwKTil8a50LgdhnEaHHcLURmpYbELn9Ll2XDI5k1li0cyobNC15YZwbRDvPJgWKtCqYK75eX4r7QxqA==
+"@react-three/cannon@^2.6.1":
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@react-three/cannon/-/cannon-2.6.1.tgz#60b46810888d4ef936eac54ed30f6c873e5c6d74"
+  integrity sha512-jb+3XaYexYRqYWUjA3UNdQ+HG2tVdtcaQ8y5cptsf1g+wpA11ZDfLNN+Jk6xGemD964fakAueLWj4bWOUvdu1Q==
+  dependencies:
+    cannon-es "^0.18.0"
+    cannon-es-debugger "^0.1.4"
 
-"@react-three/drei@^5.1.6":
-  version "5.1.6"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-5.1.6.tgz#c0ce4eba6a2aa21758de5ecc6c69b50a43f97e06"
-  integrity sha512-+kRo1a4YXQlxvFotANMPr97qhnF256kptjnRNXrntJN0hs14E4eTtUd1R0h4KSuzxraGCUy/cllxnB73SVAgQA==
+"@react-three/drei@^7.5.0":
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-7.5.0.tgz#89eddc2a500e02fcf7a024a091efa42b4fffd3a4"
+  integrity sha512-GNDSAUgEsOncWsmp68kdiP0hjt15lDN8xnY4xrORnXCtNoTvoaIzZNtLVz2E8NZrrC1rQ5dvmaGHvDg4u506Hw==
   dependencies:
     "@babel/runtime" "^7.11.2"
     blob-polyfill "^5.0.20210201"
@@ -1082,16 +1085,17 @@
     lodash.pick "^4.4.0"
     react-merge-refs "^1.0.0"
     stats.js "^0.17.0"
-    three-stdlib "^2.0.1"
+    three-mesh-bvh "^0.4.1"
+    three-stdlib "^2.4.0"
     troika-three-text "^0.42.0"
     use-asset "^1.0.4"
     utility-types "^3.10.0"
     zustand "^3.5.1"
 
-"@react-three/fiber@^6.1.5":
-  version "6.1.5"
-  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-6.1.5.tgz#dcb87a7fc7d18eee55765a273e67df0b93fdb144"
-  integrity sha512-MsKMaEBugAhWuVo8RDD5cf8EAaJ/wlsUtCns/WMJZpj9vk3gPhyHBKzn5oQLclb3rpNkA16/u1lrGZArg3M84w==
+"@react-three/fiber@^7.0.6":
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-7.0.6.tgz#faa5aa5d496ae778a89fe2d3f503428a0e3c841b"
+  integrity sha512-GSMmnk66B/xGGfbSj5lGiZCxGQD0i8rm0Bt/Xp6TD2b9cYe2Lxb2wegU04zIeN89aoUYMHXhL1GNXsZvvOjfUA==
   dependencies:
     "@babel/runtime" "^7.13.10"
     react-merge-refs "^1.1.0"
@@ -1142,10 +1146,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.9.tgz#04afc9a25c6ff93da14deabd65dc44485b53c8d6"
   integrity sha512-JsoLXFppG62tWTklIoO4knA+oDTYsmqWxHRvd4lpmfQRNhX6osheUOWETP2jMoV/2bEHuMra8Pp3Dmo/stBFcw==
 
-"@types/p5@^0.9.1":
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/@types/p5/-/p5-0.9.1.tgz#920c6cd6ee30b5d9e5cc04cb9b11bb762c333bc5"
-  integrity sha512-4glOKdqdBiRWDFZwi/MjHudPV2U4t2L4fTTSacGapfFxyNXzZcAshAjqmrJkCIZcFlhRBEAL7AM95xRDMfrIwg==
+"@types/p5@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@types/p5/-/p5-1.3.0.tgz#7c3254961b176d7f87060c5352ec25ddb2478f9c"
+  integrity sha512-Bdaq60LErR9DD8083HpSFs7EoNcrsIZTp7xm7tCn4f7frT83gaeAR31tMFIdX02IS1oCKuKOHOadQvbYXHwZPg==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -2037,10 +2041,15 @@ caniuse-lite@^1.0.30001157:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001159.tgz#bebde28f893fa9594dadcaa7d6b8e2aa0299df20"
   integrity sha512-w9Ph56jOsS8RL20K9cLND3u/+5WASWdhC/PPrf+V3/HsM3uHOavWOR1Xzakbv4Puo/srmPHudkmCRWM7Aq+/UA==
 
-cannon-es@^0.17.1:
-  version "0.17.1"
-  resolved "https://registry.yarnpkg.com/cannon-es/-/cannon-es-0.17.1.tgz#39d25d37e40e1a0765c96753be6c257069b214b7"
-  integrity sha512-MU2ylhpsCJJcZhKdTDpd7PXn1VK5nUQZo2QiHRu67527Q78mTE1XipeaU8RyTQQRxBiC+b9exPykg2+nVnMoRA==
+cannon-es-debugger@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/cannon-es-debugger/-/cannon-es-debugger-0.1.4.tgz#22c79ae14c52de44465690988ff647c51c79c62b"
+  integrity sha512-RefSPWX6gDMQsx3UWoQpkGW3R03Wwn8p1JteexQUYxDC5DnOS3U3iKhns2vVpFp6Q3AKiSSmRf7NIXnGN8L0RA==
+
+cannon-es@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/cannon-es/-/cannon-es-0.18.0.tgz#ae831ff9df2352d5faabb269c11ea0f10bc35c7e"
+  integrity sha512-GiQ1bd0etZsMVSnUhNc+p+FEh0R/cULpp8uRSAhEK4Kax+y/31Au03m6h1h1xdDivAMnFg8YDwevHgzLynOHlw==
 
 capital-case@^1.0.4:
   version "1.0.4"
@@ -2098,13 +2107,13 @@ cheerio@^1.0.0-rc.3:
     lodash "^4.15.0"
     parse5 "^3.0.1"
 
-chevrotain@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/chevrotain/-/chevrotain-9.0.1.tgz#476ecfe4c8e48f525c4f22223abfe360839fbe2a"
-  integrity sha512-7rFWS+G8yavnYK5AcqSL9mSXPRfz+atuwM4Hq5Ph/CNM7n7zl3woPXMGWS+cdxSD01nic4PozN12zaw1Fu8cug==
+chevrotain@^9.0.2:
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/chevrotain/-/chevrotain-9.0.2.tgz#7cc462262fec8ee293d96b756085ac71b8804bf1"
+  integrity sha512-6ZjgUdGvU4j1n1b2hTjb79Vr2V+qNtmP7f8FVt79+kdAYcUj2QfYNwI8ycCVsgHD/dIeO5Vr1hckkkfliVQTfg==
   dependencies:
-    "@chevrotain/types" "^9.0.1"
-    "@chevrotain/utils" "^9.0.0"
+    "@chevrotain/types" "^9.0.2"
+    "@chevrotain/utils" "^9.0.2"
     regexp-to-ast "0.5.0"
 
 chokidar@^2.1.8:
@@ -2711,9 +2720,9 @@ detect-file@^1.0.0:
   integrity sha1-8NZtA2cqglyxtzvbP+YjEMjlUrc=
 
 detect-gpu@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/detect-gpu/-/detect-gpu-3.0.0.tgz#d1ced721581c27fec29e24aee8c3eadf45450b5a"
-  integrity sha512-D/uxvKWDqhy7XoHHdC7By1Bzxuv0t8OwccsiW1DbRPsqOr0rTAjxdO//bSck6QS54jc9QHbaQoRczAy5KbCOCQ==
+  version "3.1.13"
+  resolved "https://registry.yarnpkg.com/detect-gpu/-/detect-gpu-3.1.13.tgz#19dd4ff3a827dc21c076e5585b63ba52776e99f7"
+  integrity sha512-vJQdoy0HXRdz9IwF22R9nOm/N8Fl/CKPh3Dq7xWyMZt5wdcMrIEMldvtKuRhavDSqWe8OjKid0UlbeIcW9FYdQ==
   dependencies:
     webgl-constants "^1.1.1"
 
@@ -6989,15 +6998,20 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-three-stdlib@^2.0.1:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/three-stdlib/-/three-stdlib-2.0.3.tgz#265068413a5239ca0d4d0a712ef047b9bd598dfb"
-  integrity sha512-jJ4dYvbqDyd0PfSSNzmHc1VwJPjOdWctmiqcZEn0i4tEu19myTpPSV5wNLo0cIHpoGdISvdwHyETPFlwW+CMPA==
+three-mesh-bvh@^0.4.1:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/three-mesh-bvh/-/three-mesh-bvh-0.4.2.tgz#d6ad431a1a1e5bce6f309e27cbb2db0142c9fb27"
+  integrity sha512-dApttQDxi8aFaRqRJt6JQ+UYUQpIwZ4Zu4VhoVv9GugTaT0gFcPeo7ud9dzmq6HsLGX8p2i7VrO/zLu7mQ4VDQ==
+
+three-stdlib@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/three-stdlib/-/three-stdlib-2.4.0.tgz#e6ffde19de40f3e2d8dfe5d5659667272c1918b6"
+  integrity sha512-fy1utgeo/RskodAmKPoiexkcH/m5Zy9C01QjuESTnihDd+LyjxsmqAUI+qoDCkQIAwtBvYPE53EFBXzZM0B04A==
   dependencies:
-    "@babel/runtime" "^7.13.17"
+    "@babel/runtime" "^7.14.6"
     "@webgpu/glslang" "^0.0.15"
     "@webxr-input-profiles/motion-controllers" "^1.0.0"
-    chevrotain "^9.0.1"
+    chevrotain "^9.0.2"
     fflate "^0.6.9"
     ktx-parse "^0.2.1"
     mmd-parser "^1.0.4"
